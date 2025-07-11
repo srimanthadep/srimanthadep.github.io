@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Srimanth Adep - Portfolio</title>
+    <meta name="description" content="Computer Science Engineering Student specializing in Data Science">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --accent-primary: #3b82f6;
+            --accent-secondary: #8b5cf6;
+            --border-color: #2a2a2a;
+            --card-bg: rgba(20, 20, 20, 0.8);
+            --shadow-glow: 0 0 40px rgba(59, 130, 246, 0.3);
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-primary);
+            border-radius: 4px;
+        }
+        
+        /* 3D Background Canvas */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            padding: 8px 16px;
+            animation: slideDown 0.8s ease-out;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .nav-link {
+            padding: 8px 16px;
+            border-radius: 25px;
+            background: transparent;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .nav-link:hover {
+            background: var(--accent-primary);
+            box-shadow: var(--shadow-glow);
+        }
+        
+        .nav-link.active {
+            background: var(--accent-primary);
+            box-shadow: var(--shadow-glow);
+        }
+        
+        /* Mobile Navigation */
+        .mobile-nav-toggle {
+            display: none;
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            cursor: pointer;
+            padding: 8px;
+        }
+        
+        /* Sections */
+        section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 20px;
+            position: relative;
+        }
+        
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        
+        /* Hero Section */
+        #hero {
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        
+        .contact-item a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .contact-item a:hover {
+            color: var(--accent-primary);
+        }
+        
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background: var(--accent-primary);
+            color: white;
+            border: none;
+            box-shadow: var(--shadow-glow);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(59, 130, 246, 0.4);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+        }
+        
+        .btn-outline:hover {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+        }
+        
+        /* Section Headers */
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        h2 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
+        }
+        
+        .section-divider {
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            margin: 0 auto 40px;
+            border-radius: 2px;
+        }
+        
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.2);
+            transform: translateY(-4px);
+        }
+        
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+        
+        /* About Section */
+        .info-grid {
+            display: grid;
+            gap: 16px;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+        }
+        
+        .info-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(59, 130, 246, 0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-primary);
+        }
+        
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .timeline-item {
+            margin-bottom: 32px;
+            opacity: 0;
+            animation: fadeInLeft 0.8s ease-out forwards;
+        }
+        
+        .timeline-item:nth-child(even) {
+            animation: fadeInRight 0.8s ease-out forwards;
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 16px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+            border: 4px solid var(--bg-primary);
+        }
+        
+        /* Badge */
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--accent-primary);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        /* Skills */
+        .skill-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background: var(--accent-primary);
+            color: white;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            margin: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .skill-badge:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotateY(0);
+            }
+            50% {
+                transform: translateY(-20px) rotateY(180deg);
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-nav-toggle {
+                display: block;
+            }
+            
+            .nav-links.mobile-open {
+                display: flex;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                flex-direction: column;
+                background: rgba(20, 20, 20, 0.95);
+                border: 1px solid var(--border-color);
+                border-radius: 12px;
+                padding: 16px;
+                margin-top: 8px;
+                min-width: 200px;
+            }
+            
+            .timeline-dot {
+                left: 0;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+                width: 100%;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+        
+        /* Utility Classes */
+        .text-center {
+            text-align: center;
+        }
+        
+        .mb-4 {
+            margin-bottom: 16px;
+        }
+        
+        .mb-6 {
+            margin-bottom: 24px;
+        }
+        
+        .mb-8 {
+            margin-bottom: 32px;
+        }
+        
+        .text-muted {
+            color: var(--text-secondary);
+        }
+        
+        .leading-relaxed {
+            line-height: 1.8;
+        }
+        
+        /* Lists */
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        ul li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 12px;
+        }
+        
+        ul li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent-primary);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- 3D Background -->
+    <div id="canvas-container"></div>
+    
+    <!-- Navigation -->
+    <nav>
+        <button class="mobile-nav-toggle" onclick="toggleMobileNav()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+        </button>
+        <div class="nav-links" id="navLinks">
+            <a href="#hero" class="nav-link active">Home</a>
+            <a href="#about" class="nav-link">About</a>
+            <a href="#experience" class="nav-link">Experience</a>
+            <a href="#projects" class="nav-link">Projects</a>
+            <a href="#skills" class="nav-link">Skills</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="container">
+            <h1>SRIMANTH ADEP</h1>
+            <p class="subtitle">Computer Science Engineering in Data Science Student</p>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    <span>Hyderabad, India – 500060</span>
+                </div>
+                <div class="contact-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                    </svg>
+                    <span>+91 9912885813</span>
+                </div>
+                <div class="contact-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                        <path d="m22 7-10 5L2 7"></path>
+                    </svg>
+                    <a href="mailto:srimanthadep@gmail.com">srimanthadep@gmail.com</a>
+                </div>
+            </div>
+            
+            <div class="btn-group">
+                <a href="https://linkedin.com/in/srimanthadep" target="_blank" class="btn btn-primary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                    LinkedIn
+                </a>
+                <a href="#contact" class="btn btn-outline">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                        <path d="m22 7-10 5L2 7"></path>
+                    </svg>
+                    Contact Me
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>About Me</h2>
+                <div class="section-divider"></div>
+            </div>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <h3 class="mb-4">Objective</h3>
+                    <p class="text-muted leading-relaxed mb-6">
+                        Seeking opportunities to enhance skills and knowledge in computer science and engineering. 
+                        I value mutual growth and development with organizations and desire a collaborative, 
+                        innovative environment that values creativity and teamwork. My aim is to contribute to 
+                        organizational goals while pursuing professional aspirations in technology and software development.
+                    </p>
+                    
+                    <h4 class="mb-4">Languages</h4>
+                    <div>
+                        <span class="badge">Telugu</span>
+                        <span class="badge">English</span>
+                        <span class="badge">Hindi</span>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="mb-4">Personal Information</h3>
+                    <div class="info-grid">
+                        <div class="card info-item">
+                            <div class="info-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="font-medium">Date of Birth</p>
+                                <p class="text-muted">13/02/2005</p>
+                            </div>
+                        </div>
+                        
+                        <div class="card info-item">
+                            <div class="info-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="font-medium">Gender</p>
+                                <p class="text-muted">Male</p>
+                            </div>
+                        </div>
+                        
+                        <div class="card info-item">
+                            <div class="info-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                                    <circle cx="12" cy="10" r="3"></circle>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="font-medium">Nationality</p>
+                                <p class="text-muted">Indian</p>
+                            </div>
+                        </div>
+                        
+                        <div class="card info-item">
+                            <div class="info-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="font-medium">Hobbies</p>
+                                <p class="text-muted">Programming, Learning New Technologies</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Education Section -->
+    <section id="education">
+        <div class="container">
+            <div class="section-header">
+                <h2>Education</h2>
+                <div class="section-divider"></div>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="card">
+                        <div style="display: flex; justify-content: space-between; align-items: start;">
+                            <div>
+                                <h3>Anurag University (AU), Hyderabad</h3>
+                                <p class="text-muted">B.Tech in Computer Science and Engineering</p>
+                                <p style="color: var(--accent-primary); font-weight: 600;">CGPA: 7.99</p>
+                            </div>
+                            <div style="text-align: right;">
+                                <span class="badge">Expected Mar 2026</span>
+                                <br>
+                                <span class="badge" style="background: transparent; border: 1px solid var(--accent-primary); margin-top: 8px; display: inline-block;">Current</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="card">
+                        <div style="display: flex; justify-content: space-between; align-items: start;">
+                            <div>
+                                <h3>Sri Gayatri Jr College, Hyderabad</h3>
+                                <p class="text-muted">Intermediate</p>
+                                <p style="color: var(--accent-primary); font-weight: 600;">Percentage: 72.4%</p>
+                            </div>
+                            <div>
+                                <span class="badge">May 2022</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="card">
+                        <div style="display: flex; justify-content: space-between; align-items: start;">
+                            <div>
+                                <h3>Bhashyam High School, Hyderabad</h3>
+                                <p class="text-muted">SSC</p>
+                                <p style="color: var(--accent-primary); font-weight: 600;">CGPA: 9.5</p>
+                            </div>
+                            <div>
+                                <span class="badge">Mar 2020</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Experience Section -->
+    <section id="experience">
+        <div class="container">
+            <div class="section-header">
+                <h2>Work Experience</h2>
+                <div class="section-divider"></div>
+            </div>
+            
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div class="card mb-6">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 20px;">
+                        <div>
+                            <h3>NSS, Hyderabad, India</h3>
+                            <p style="font-size: 18px; color: var(--text-secondary);">Volunteer</p>
+                            <div style="display: flex; gap: 20px; margin-top: 8px;">
+                                <span class="text-muted" style="font-size: 14px;">📅 April 2023 – Current</span>
+                                <span class="text-muted" style="font-size: 14px;">📍 Hyderabad, India</span>
+                            </div>
+                        </div>
+                        <span class="badge" style="background: var(--accent-primary); color: white;">Current</span>
+                    </div>
+                    <ul>
+                        <li>Supported engaging, fun, and smooth-running events through meticulous organization and planning</li>
+                        <li>Utilized strong interpersonal communication skills to effectively convey information to diverse audiences</li>
+                        <li>Maintained clean, neat, and operational facilities to serve program needs and ensure optimal functionality</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <div style="margin-bottom: 20px;">
+                        <h3>Kriya, Hyderabad, India</h3>
+                        <p style="font-size: 18px; color: var(--text-secondary);">Intern</p>
+                        <div style="display: flex; gap: 20px; margin-top: 8px;">
+                            <span class="text-muted" style="font-size: 14px;">📅 May 2023 – Mar 2024</span>
+                            <span class="text-muted" style="font-size: 14px;">📍 Hyderabad, India</span>
+                        </div>
+                    </div>
+                    <ul>
+                        <li>Sorted and organized files, spreadsheets, and reports to improve workflow efficiency</li>
+                        <li>Analyzed complex problems and collaborated with cross-functional teams to develop innovative solutions</li>
+                        <li>Explored new technologies and approaches to streamline processes and enhance productivity</li>
+                        <li>Participated in workshops and presentations related to projects to gain comprehensive knowledge</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="container">
+            <div class="section-header">
+                <h2>Projects</h2>
+                <div class="section-divider"></div>
+            </div>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+                        <div class="info-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                        </div>
+                        <h3>Fake News Detection Using R and ML</h3>
+                    </div>
+                    <p class="text-muted mb-4">
+                        Developed a machine learning model using R to detect and classify fake news articles, implementing various algorithms to improve accuracy and reliability.
+                    </p>
+                    <div>
+                        <span class="skill-badge">R</span>
+                        <span class="skill-badge">Machine Learning</span>
+                        <span class="skill-badge">Data Analysis</span>
+                        <span class="skill-badge">Classification</span>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+                        <div class="info-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </div>
+                        <h3>ShareYourRide – Ride Sharing Platform</h3>
+                    </div>
+                    <p class="text-muted mb-4">
+                        Created a comprehensive ride sharing platform using HTML, CSS, and JavaScript, featuring user-friendly interfaces and real-time connectivity features.
+                    </p>
+                    <div>
+                        <span class="skill-badge">HTML</span>
+                        <span class="skill-badge">CSS</span>
+                        <span class="skill-badge">JavaScript</span>
+                        <span class="skill-badge">Web Development</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="container">
+            <div class="section-header">
+                <h2>Skills & Certifications</h2>
+                <div class="section-divider"></div>
+            </div>
+            
+            <div class="grid-3 mb-8">
+                <div class="card">
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                        <div class="info-icon" style="background: rgba(59, 130, 246, 0.2); color: #3b82f6;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="16 18 22 12 16 6"></polyline>
+                                <polyline points="8 6 2 12 8 18"></polyline>
+                            </svg>
+                        </div>
+                        <h3>Programming Languages</h3>
+                    </div>
+                    <div>
+                        <span class="skill-badge">Python</span>
+                        <span class="skill-badge">C</span>
+                        <span class="skill-badge">Java</span>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                        <div class="info-icon" style="background: rgba(34, 197, 94, 0.2); color: #22c55e;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </div>
+                        <h3>Web Development</h3>
+                    </div>
+                    <div>
+                        <span class="skill-badge">HTML</span>
+                        <span class="skill-badge">CSS</span>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                        <div class="info-icon" style="background: rgba(139, 92, 246, 0.2); color: #8b5cf6;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                            </svg>
+                        </div>
+                        <h3>Database & Others</h3>
+                    </div>
+                    <div>
+                        <span class="skill-badge">DBMS</span>
+                        <span class="skill-badge">Team Leadership</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div>
+                <h3 class="text-center mb-6">Certifications</h3>
+                <div class="grid-3" style="max-width: 800px; margin: 0 auto;">
+                    <div class="card" style="padding: 20px;">
+                        <div style="display: flex; align-items: start; gap: 12px;">
+                            <div style="padding: 8px; background: rgba(251, 191, 36, 0.2); border-radius: 8px;">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2">
+                                    <circle cx="12" cy="8" r="7"></circle>
+                                    <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>Python</h4>
+                                <p class="text-muted" style="font-size: 14px;">Infosys Springboard, HackerRank</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card" style="padding: 20px;">
+                        <div style="display: flex; align-items: start; gap: 12px;">
+                            <div style="padding: 8px; background: rgba(251, 191, 36, 0.2); border-radius: 8px;">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2">
+                                    <circle cx="12" cy="8" r="7"></circle>
+                                    <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>Java</h4>
+                                <p class="text-muted" style="font-size: 14px;">Infosys Springboard</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card" style="padding: 20px;">
+                        <div style="display: flex; align-items: start; gap: 12px;">
+                            <div style="padding: 8px; background: rgba(251, 191, 36, 0.2); border-radius: 8px;">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2">
+                                    <circle cx="12" cy="8" r="7"></circle>
+                                    <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>Data Structures</h4>
+                                <p class="text-muted" style="font-size: 14px;">Infosys Springboard</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card" style="padding: 20px;">
+                        <div style="display: flex; align-items: start; gap: 12px;">
+                            <div style="padding: 8px; background: rgba(251, 191, 36, 0.2); border-radius: 8px;">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2">
+                                    <circle cx="12" cy="8" r="7"></circle>
+                                    <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>HTML5 & CSS</h4>
+                                <p class="text-muted" style="font-size: 14px;">Infosys Springboard</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card" style="padding: 20px;">
+                        <div style="display: flex; align-items: start; gap: 12px;">
+                            <div style="padding: 8px; background: rgba(251, 191, 36, 0.2); border-radius: 8px;">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2">
+                                    <circle cx="12" cy="8" r="7"></circle>
+                                    <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>DBMS</h4>
+                                <p class="text-muted" style="font-size: 14px;">Infosys Springboard</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Get In Touch</h2>
+                <div class="section-divider"></div>
+                <p class="text-muted" style="max-width: 600px; margin: 0 auto;">
+                    I'm always open to discussing new opportunities and collaborations. 
+                    Feel free to reach out if you'd like to connect!
+                </p>
+            </div>
+            
+            <div class="grid-2" style="max-width: 800px; margin: 0 auto 40px;">
+                <a href="mailto:srimanthadep@gmail.com" class="card" style="text-decoration: none; color: inherit; display: block;">
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                        <div class="info-icon" style="background: rgba(59, 130, 246, 0.2); color: #3b82f6;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                                <path d="m22 7-10 5L2 7"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4>Email</h4>
+                            <p class="text-muted">srimanthadep@gmail.com</p>
+                        </div>
+                    </div>
+                </a>
+                
+                <a href="tel:+919912885813" class="card" style="text-decoration: none; color: inherit; display: block;">
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                        <div class="info-icon" style="background: rgba(34, 197, 94, 0.2); color: #22c55e;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4>Phone</h4>
+                            <p class="text-muted">+91 9912885813</p>
+                        </div>
+                    </div>
+                </a>
+                
+                <div class="card">
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                        <div class="info-icon" style="background: rgba(239, 68, 68, 0.2); color: #ef4444;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4>Location</h4>
+                            <p class="text-muted">Hyderabad, India – 500060</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="https://linkedin.com/in/srimanthadep" target="_blank" class="card" style="text-decoration: none; color: inherit; display: block;">
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                        <div class="info-icon" style="background: rgba(14, 118, 168, 0.2); color: #0e76a8;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4>LinkedIn</h4>
+                            <p class="text-muted">linkedin.com/in/srimanthadep</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
+            <div class="text-center">
+                <a href="mailto:srimanthadep@gmail.com" class="btn btn-primary" style="margin-bottom: 16px;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                        <path d="m22 7-10 5L2 7"></path>
+                    </svg>
+                    Send Email
+                </a>
+                <br>
+                <a href="https://drive.google.com/file/d/1Gq8q1Pe-9fqQcbueZZQMY9l93v82tvbZ/view?usp=drive_link" 
+                   target="_blank" 
+                   class="btn btn-outline">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                    </svg>
+                    View Resume
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Srimanth Adep. All rights reserved.</p>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script>
+        // Mobile Navigation Toggle
+        function toggleMobileNav() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('mobile-open');
+        }
+        
+        // Smooth Scrolling for Navigation Links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                if (targetSection) {
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                
+                // Close mobile menu if open
+                document.getElementById('navLinks').classList.remove('mobile-open');
+            });
+        });
+        
+        // Active Navigation Link Update
+        function updateActiveNavLink() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', updateActiveNavLink);
+        
+        // Three.js 3D Background
+        let scene, camera, renderer;
+        let shapes = [];
+        
+        function init3D() {
+            // Scene setup
+            scene = new THREE.Scene();
+            
+            // Camera setup
+            camera = new THREE.PerspectiveCamera(
+                75,
+                window.innerWidth / window.innerHeight,
+                0.1,
+                1000
+            );
+            camera.position.z = 8;
+            
+            // Renderer setup
+            renderer = new THREE.WebGLRenderer({ 
+                antialias: true, 
+                alpha: true 
+            });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            document.getElementById('canvas-container').appendChild(renderer.domElement);
+            
+            // Lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+            scene.add(ambientLight);
+            
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+            directionalLight.position.set(10, 10, 5);
+            scene.add(directionalLight);
+            
+            const pointLight = new THREE.PointLight(0x8b5cf6, 0.5);
+            pointLight.position.set(-10, -10, -10);
+            scene.add(pointLight);
+            
+            // Create shapes
+            const geometries = [
+                { geometry: new THREE.BoxGeometry(1, 1, 1), position: [-4, 3, -2], color: 0x3b82f6 },
+                { geometry: new THREE.SphereGeometry(0.8, 32, 32), position: [4, -2, -1], color: 0x8b5cf6 },
+                { geometry: new THREE.TorusGeometry(0.6, 0.3, 16, 100), position: [-3, -3, -3], color: 0x06b6d4 },
+                { geometry: new THREE.ConeGeometry(0.6, 1.2, 8), position: [3, 4, -2], color: 0x10b981 },
+                { geometry: new THREE.BoxGeometry(1, 1, 1), position: [0, -4, -4], color: 0xf59e0b }
+            ];
+            
+            geometries.forEach(({ geometry, position, color }) => {
+                const material = new THREE.MeshPhongMaterial({
+                    color: color,
+                    shininess: 100,
+                    specular: 0x222222
+                });
+                const mesh = new THREE.Mesh(geometry, material);
+                mesh.position.set(...position);
+                mesh.userData = {
+                    originalPosition: position,
+                    floatSpeed: Math.random() * 2 + 1,
+                    rotationSpeed: {
+                        x: (Math.random() - 0.5) * 0.02,
+                        y: (Math.random() - 0.5) * 0.02,
+                        z: (Math.random() - 0.5) * 0.02
+                    }
+                };
+                scene.add(mesh);
+                shapes.push(mesh);
+            });
+            
+            // Handle window resize
+            window.addEventListener('resize', onWindowResize, false);
+        }
+        
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+        
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            const time = Date.now() * 0.001;
+            
+            // Animate shapes
+            shapes.forEach((shape, index) => {
+                // Floating animation
+                shape.position.y = shape.userData.originalPosition[1] + 
+                    Math.sin(time * shape.userData.floatSpeed) * 0.3;
+                
+                // Rotation
+                shape.rotation.x += shape.userData.rotationSpeed.x;
+                shape.rotation.y += shape.userData.rotationSpeed.y;
+                shape.rotation.z += shape.userData.rotationSpeed.z;
+            });
+            
+            // Auto-rotate camera slightly
+            camera.position.x = Math.sin(time * 0.1) * 0.5;
+            camera.position.y = Math.cos(time * 0.1) * 0.5;
+            camera.lookAt(scene.position);
+            
+            renderer.render(scene, camera);
+        }
+        
+        // Initialize 3D scene
+        init3D();
+        animate();
+        
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe elements for animation
+        document.querySelectorAll('.card, .timeline-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(40px)';
+            el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
