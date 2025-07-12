@@ -4,7 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Srimanth Adep - Portfolio</title>
-    <meta name="description" content="Computer Science Engineering Student specializing in Data Science">
+    <meta name="description" content="Srimanth Adep's portfolio - Computer Science Engineering student specializing in Data Science, showcasing projects, skills, and experience in software development.">
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Srimanth Adep - Portfolio">
+    <meta property="og:description" content="Computer Science Engineering student specializing in Data Science. Explore my projects, skills, and experience.">
+    <meta property="og:image" content="https://example.com/srimanth-portfolio-image.jpg">
+    <meta property="og:url" content="https://example.com/srimanth-portfolio">
+    <meta property="og:type" content="website">
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -27,7 +33,7 @@
             --bg-primary: #0a0a0a;
             --bg-secondary: #1a1a1a;
             --text-primary: #ffffff;
-            --text-secondary: #a0a0a0;
+            --text-secondary: #cccccc; /* Improved contrast for accessibility */
             --accent-primary: #3b82f6;
             --accent-secondary: #8b5cf6;
             --border-color: #2a2a2a;
@@ -43,6 +49,17 @@
             line-height: 1.6;
         }
         
+        /* Fallback Background */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #0a0a0a, #1a1a1a); /* Fallback */
+        }
+        
         /* Scrollbar Styling */
         ::-webkit-scrollbar {
             width: 8px;
@@ -55,16 +72,6 @@
         ::-webkit-scrollbar-thumb {
             background: var(--accent-primary);
             border-radius: 4px;
-        }
-        
-        /* 3D Background Canvas */
-        #canvas-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
         }
         
         /* Navigation */
@@ -142,12 +149,73 @@
         h1 {
             font-size: clamp(3rem, 8vw, 6rem);
             font-weight: 700;
-            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
             margin-bottom: 20px;
             animation: fadeInUp 1s ease-out;
+        }
+        
+        /* Animated Gradient Text */
+        .animated-gradient-text {
+            position: relative;
+            margin: 0 auto;
+            display: flex;
+            max-width: fit-content;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            border-radius: 1.25rem;
+            font-weight: 700;
+            backdrop-filter: blur(10px);
+            transition: box-shadow 0.5s ease-out;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .gradient-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-size: 300% 100%;
+            animation: gradient linear infinite;
+            border-radius: inherit;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .gradient-overlay::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            border-radius: inherit;
+            width: calc(100% - 2px);
+            height: calc(100% - 2px);
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #060010;
+            z-index: -1;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .text-content {
+            display: inline-block;
+            position: relative;
+            z-index: 2;
+            background-size: 300% 100%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: gradient linear infinite;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 700;
+            line-height: 1.2;
         }
         
         .subtitle {
@@ -350,7 +418,7 @@
         .skill-badge {
             display: inline-block;
             padding: 8px 16px;
-            background: var(--accent-primary);
+            background: var(--accent-primary); /* Changed to match language badge */
             color: white;
             border-radius: 20px;
             font-size: 14px;
@@ -374,65 +442,33 @@
         
         /* Animations */
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         @keyframes fadeInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            from { opacity: 0; transform: translateX(-40px); }
+            to { opacity: 1; transform: translateX(0); }
         }
         
         @keyframes fadeInRight {
-            from {
-                opacity: 0;
-                transform: translateX(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            from { opacity: 0; transform: translateX(40px); }
+            to { opacity: 1; transform: translateX(0); }
         }
         
         @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-100%);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-100%); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         @keyframes float {
-            0%, 100% {
-                transform: translateY(0) rotateY(0);
-            }
-            50% {
-                transform: translateY(-20px) rotateY(180deg);
-            }
+            0%, 100% { transform: translateY(0) rotateY(0); }
+            50% { transform: translateY(-20px) rotateY(180deg); }
         }
         
         /* Responsive */
@@ -460,7 +496,11 @@
             }
             
             .timeline-dot {
-                left: 0;
+                left: 20px; /* Adjusted for alignment */
+            }
+            
+            .timeline-item {
+                padding-left: 40px; /* Prevent content overlap */
             }
             
             .contact-info {
@@ -482,29 +522,12 @@
         }
         
         /* Utility Classes */
-        .text-center {
-            text-align: center;
-        }
-        
-        .mb-4 {
-            margin-bottom: 16px;
-        }
-        
-        .mb-6 {
-            margin-bottom: 24px;
-        }
-        
-        .mb-8 {
-            margin-bottom: 32px;
-        }
-        
-        .text-muted {
-            color: var(--text-secondary);
-        }
-        
-        .leading-relaxed {
-            line-height: 1.8;
-        }
+        .text-center { text-align: center; }
+        .mb-4 { margin-bottom: 16px; }
+        .mb-6 { margin-bottom: 24px; }
+        .mb-8 { margin-bottom: 32px; }
+        .text-muted { color: var(--text-secondary); }
+        .leading-relaxed { line-height: 1.8; }
         
         /* Lists */
         ul {
@@ -533,8 +556,8 @@
     
     <!-- Navigation -->
     <nav>
-        <button class="mobile-nav-toggle" onclick="toggleMobileNav()">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <button class="mobile-nav-toggle" aria-label="Toggle navigation" aria-expanded="false" onclick="toggleMobileNav()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-label="Menu icon">
                 <line x1="3" y1="12" x2="21" y2="12"></line>
                 <line x1="3" y1="6" x2="21" y2="6"></line>
                 <line x1="3" y1="18" x2="21" y2="18"></line>
@@ -543,6 +566,7 @@
         <div class="nav-links" id="navLinks">
             <a href="#hero" class="nav-link active">Home</a>
             <a href="#about" class="nav-link">About</a>
+            <a href="#education" class="nav-link">Education</a>
             <a href="#experience" class="nav-link">Experience</a>
             <a href="#projects" class="nav-link">Projects</a>
             <a href="#skills" class="nav-link">Skills</a>
@@ -553,25 +577,29 @@
     <!-- Hero Section -->
     <section id="hero">
         <div class="container">
-            <h1>SRIMANTH ADEP</h1>
+            <div class="animated-gradient-text">
+                <h1 class="text-content" style="background-image: linear-gradient(to right, #40ffaa, #4079ff, #40ffaa, #4079ff, #40ffaa); animation-duration: 3s;">
+                    SRIMANTH ADEP
+                </h1>
+            </div>
             <p class="subtitle">Computer Science Engineering in Data Science Student</p>
             
             <div class="contact-info">
                 <div class="contact-item">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-label="Location icon">
                         <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
                         <circle cx="12" cy="10" r="3"></circle>
                     </svg>
                     <span>Hyderabad, India – 500060</span>
                 </div>
                 <div class="contact-item">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-label="Phone icon">
                         <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
                     </svg>
                     <span>+91 9912885813</span>
                 </div>
                 <div class="contact-item">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-label="Email icon">
                         <rect x="2" y="4" width="20" height="16" rx="2"></rect>
                         <path d="m22 7-10 5L2 7"></path>
                     </svg>
@@ -581,13 +609,13 @@
             
             <div class="btn-group">
                 <a href="https://linkedin.com/in/srimanthadep" target="_blank" class="btn btn-primary">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-label="LinkedIn icon">
                         <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
                     </svg>
                     LinkedIn
                 </a>
                 <a href="#contact" class="btn btn-outline">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-label="Contact icon">
                         <rect x="2" y="4" width="20" height="16" rx="2"></rect>
                         <path d="m22 7-10 5L2 7"></path>
                     </svg>
@@ -628,7 +656,7 @@
                     <div class="info-grid">
                         <div class="card info-item">
                             <div class="info-icon">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-label="Calendar icon">
                                     <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                                     <line x1="16" y1="2" x2="16" y2="6"></line>
                                     <line x1="8" y1="2" x2="8" y2="6"></line>
@@ -643,7 +671,7 @@
                         
                         <div class="card info-item">
                             <div class="info-icon">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-label="Gender icon">
                                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                                     <circle cx="12" cy="7" r="4"></circle>
                                 </svg>
@@ -656,7 +684,7 @@
                         
                         <div class="card info-item">
                             <div class="info-icon">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-label="Nationality icon">
                                     <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
                                     <circle cx="12" cy="10" r="3"></circle>
                                 </svg>
@@ -669,7 +697,7 @@
                         
                         <div class="card info-item">
                             <div class="info-icon">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-label="Hobbies icon">
                                     <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                                 </svg>
                             </div>
@@ -803,7 +831,7 @@
                 <div class="card">
                     <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
                         <div class="info-icon">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-label="Project icon">
                                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                                 <polyline points="14 2 14 8 20 8"></polyline>
                                 <line x1="16" y1="13" x2="8" y2="13"></line>
@@ -827,7 +855,7 @@
                 <div class="card">
                     <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
                         <div class="info-icon">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-label="Project icon">
                                 <circle cx="12" cy="12" r="10"></circle>
                                 <circle cx="12" cy="12" r="3"></circle>
                             </svg>
@@ -860,7 +888,7 @@
                 <div class="card">
                     <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
                         <div class="info-icon" style="background: rgba(59, 130, 246, 0.2); color: #3b82f6;">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-label="Code icon">
                                 <polyline points="16 18 22 12 16 6"></polyline>
                                 <polyline points="8 6 2 12 8 18"></polyline>
                             </svg>
@@ -877,7 +905,7 @@
                 <div class="card">
                     <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
                         <div class="info-icon" style="background: rgba(34, 197, 94, 0.2); color: #22c55e;">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-label="Web icon">
                                 <circle cx="12" cy="12" r="10"></circle>
                                 <circle cx="12" cy="12" r="3"></circle>
                             </svg>
@@ -893,7 +921,7 @@
                 <div class="card">
                     <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
                         <div class="info-icon" style="background: rgba(139, 92, 246, 0.2); color: #8b5cf6;">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-label="Database icon">
                                 <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
                                 <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
                                 <line x1="12" y1="22.08" x2="12" y2="12"></line>
@@ -914,7 +942,7 @@
                     <div class="card" style="padding: 20px;">
                         <div style="display: flex; align-items: start; gap: 12px;">
                             <div style="padding: 8px; background: rgba(251, 191, 36, 0.2); border-radius: 8px;">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2" aria-label="Certification icon">
                                     <circle cx="12" cy="8" r="7"></circle>
                                     <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
                                 </svg>
@@ -929,7 +957,7 @@
                     <div class="card" style="padding: 20px;">
                         <div style="display: flex; align-items: start; gap: 12px;">
                             <div style="padding: 8px; background: rgba(251, 191, 36, 0.2); border-radius: 8px;">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2" aria-label="Certification icon">
                                     <circle cx="12" cy="8" r="7"></circle>
                                     <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
                                 </svg>
@@ -944,7 +972,7 @@
                     <div class="card" style="padding: 20px;">
                         <div style="display: flex; align-items: start; gap: 12px;">
                             <div style="padding: 8px; background: rgba(251, 191, 36, 0.2); border-radius: 8px;">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2" aria-label="Certification icon">
                                     <circle cx="12" cy="8" r="7"></circle>
                                     <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
                                 </svg>
@@ -959,7 +987,7 @@
                     <div class="card" style="padding: 20px;">
                         <div style="display: flex; align-items: start; gap: 12px;">
                             <div style="padding: 8px; background: rgba(251, 191, 36, 0.2); border-radius: 8px;">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2" aria-label="Certification icon">
                                     <circle cx="12" cy="8" r="7"></circle>
                                     <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
                                 </svg>
@@ -974,7 +1002,7 @@
                     <div class="card" style="padding: 20px;">
                         <div style="display: flex; align-items: start; gap: 12px;">
                             <div style="padding: 8px; background: rgba(251, 191, 36, 0.2); border-radius: 8px;">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2" aria-label="Certification icon">
                                     <circle cx="12" cy="8" r="7"></circle>
                                     <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
                                 </svg>
@@ -1006,7 +1034,7 @@
                 <a href="mailto:srimanthadep@gmail.com" class="card" style="text-decoration: none; color: inherit; display: block;">
                     <div style="display: flex; align-items: center; gap: 16px;">
                         <div class="info-icon" style="background: rgba(59, 130, 246, 0.2); color: #3b82f6;">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-label="Email icon">
                                 <rect x="2" y="4" width="20" height="16" rx="2"></rect>
                                 <path d="m22 7-10 5L2 7"></path>
                             </svg>
@@ -1021,7 +1049,7 @@
                 <a href="tel:+919912885813" class="card" style="text-decoration: none; color: inherit; display: block;">
                     <div style="display: flex; align-items: center; gap: 16px;">
                         <div class="info-icon" style="background: rgba(34, 197, 94, 0.2); color: #22c55e;">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-label="Phone icon">
                                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
                             </svg>
                         </div>
@@ -1035,7 +1063,7 @@
                 <div class="card">
                     <div style="display: flex; align-items: center; gap: 16px;">
                         <div class="info-icon" style="background: rgba(239, 68, 68, 0.2); color: #ef4444;">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-label="Location icon">
                                 <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
                                 <circle cx="12" cy="10" r="3"></circle>
                             </svg>
@@ -1050,7 +1078,7 @@
                 <a href="https://linkedin.com/in/srimanthadep" target="_blank" class="card" style="text-decoration: none; color: inherit; display: block;">
                     <div style="display: flex; align-items: center; gap: 16px;">
                         <div class="info-icon" style="background: rgba(14, 118, 168, 0.2); color: #0e76a8;">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-label="LinkedIn icon">
                                 <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
                             </svg>
                         </div>
@@ -1064,7 +1092,7 @@
             
             <div class="text-center">
                 <a href="mailto:srimanthadep@gmail.com" class="btn btn-primary" style="margin-bottom: 16px;">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-label="Email icon">
                         <rect x="2" y="4" width="20" height="16" rx="2"></rect>
                         <path d="m22 7-10 5L2 7"></path>
                     </svg>
@@ -1074,7 +1102,7 @@
                 <a href="https://drive.google.com/file/d/1Gq8q1Pe-9fqQcbueZZQMY9l93v82tvbZ/view?usp=drive_link" 
                    target="_blank" 
                    class="btn btn-outline">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-label="Resume icon">
                         <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
                     </svg>
                     View Resume
@@ -1085,17 +1113,32 @@
     
     <!-- Footer -->
     <footer>
-        <p>&copy; 2024 Srimanth Adep. All rights reserved.</p>
+        <p>© 2024 Srimanth Adep. All rights reserved.</p>
     </footer>
     
     <!-- JavaScript -->
     <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
         // Mobile Navigation Toggle
         function toggleMobileNav() {
             const navLinks = document.getElementById('navLinks');
-            navLinks.classList.toggle('mobile-open');
+            const toggle = document.querySelector('.mobile-nav-toggle');
+            const isOpen = navLinks.classList.toggle('mobile-open');
+            toggle.setAttribute('aria-expanded', isOpen);
         }
-        
+
+        // Close Mobile Menu on Outside Click
+        document.addEventListener('click', (e) => {
+            const navLinks = document.getElementById('navLinks');
+            const toggle = document.querySelector('.mobile-nav-toggle');
+            if (!navLinks.contains(e.target) && !toggle.contains(e.target)) {
+                navLinks.classList.remove('mobile-open');
+                toggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+
         // Smooth Scrolling for Navigation Links
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', function(e) {
@@ -1110,11 +1153,12 @@
                     });
                 }
                 
-                // Close mobile menu if open
+                // Close mobile menu
                 document.getElementById('navLinks').classList.remove('mobile-open');
+                document.querySelector('.mobile-nav-toggle').setAttribute('aria-expanded', 'false');
             });
         });
-        
+
         // Active Navigation Link Update
         function updateActiveNavLink() {
             const sections = document.querySelectorAll('section');
@@ -1139,23 +1183,84 @@
         }
         
         window.addEventListener('scroll', updateActiveNavLink);
-        
-        // Three.js 3D Background
+
+        // Three.js Silk Background
         let scene, camera, renderer;
-        let shapes = [];
-        
+        let silkMesh;
+        let uniforms;
+        let animationFrameId;
+
+        function hexToNormalizedRGB(hex) {
+            hex = hex.replace("#", "");
+            return [
+                parseInt(hex.slice(0, 2), 16) / 255,
+                parseInt(hex.slice(2, 4), 16) / 255,
+                parseInt(hex.slice(4, 6), 16) / 255,
+            ];
+        }
+
+        const vertexShader = `
+            varying vec2 vUv;
+            varying vec3 vPosition;
+            void main() {
+                vPosition = position;
+                vUv = uv;
+                gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+            }
+        `;
+
+        const fragmentShader = `
+            varying vec2 vUv;
+            varying vec3 vPosition;
+            uniform float uTime;
+            uniform vec3  uColor;
+            uniform float uSpeed;
+            uniform float uScale;
+            uniform float uRotation;
+            uniform float uNoiseIntensity;
+            
+            const float e = 2.71828182845904523536;
+            
+            float noise(vec2 texCoord) {
+                float G = e;
+                vec2  r = (G * sin(G * texCoord));
+                return fract(r.x * r.y * (1.0 + texCoord.x));
+            }
+            
+            vec2 rotateUvs(vec2 uv, float angle) {
+                float c = cos(angle);
+                float s = sin(angle);
+                mat2  rot = mat2(c, -s, s, c);
+                return rot * uv;
+            }
+            
+            void main() {
+                float rnd        = noise(gl_FragCoord.xy);
+                vec2  uv         = rotateUvs(vUv * uScale, uRotation);
+                vec2  tex        = uv * uScale;
+                float tOffset    = uSpeed * uTime;
+                tex.y += 0.03 * sin(8.0 * tex.x - tOffset);
+                
+                float pattern = 0.6 +
+                              0.4 * sin(5.0 * (tex.x + tex.y +
+                                               cos(3.0 * tex.x + 5.0 * tex.y) +
+                                               0.02 * tOffset) +
+                                       sin(20.0 * (tex.x + tex.y - 0.1 * tOffset)));
+                
+                vec4 col = vec4(uColor, 1.0) * vec4(pattern) - rnd / 15.0 * uNoiseIntensity;
+                col.a = 1.0;
+                gl_FragColor = col;
+            }
+        `;
+
         function init3D() {
             // Scene setup
             scene = new THREE.Scene();
             
-            // Camera setup
-            camera = new THREE.PerspectiveCamera(
-                75,
-                window.innerWidth / window.innerHeight,
-                0.1,
-                1000
-            );
-            camera.position.z = 8;
+            // Camera setup - orthographic for 2D plane
+            const aspect = window.innerWidth / window.innerHeight;
+            camera = new THREE.OrthographicCamera(-aspect, aspect, 1, -1, 0.1, 10);
+            camera.position.z = 1;
             
             // Renderer setup
             renderer = new THREE.WebGLRenderer({ 
@@ -1166,93 +1271,76 @@
             renderer.setPixelRatio(window.devicePixelRatio);
             document.getElementById('canvas-container').appendChild(renderer.domElement);
             
-            // Lighting
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
-            scene.add(ambientLight);
+            // Silk shader setup
+            const color = new THREE.Color(...hexToNormalizedRGB("#7B7481"));
             
-            const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-            directionalLight.position.set(10, 10, 5);
-            scene.add(directionalLight);
+            uniforms = {
+                uTime: { value: 0 },
+                uSpeed: { value: 5 },
+                uScale: { value: 1 },
+                uNoiseIntensity: { value: 1.5 },
+                uColor: { value: color },
+                uRotation: { value: 0 }
+            };
             
-            const pointLight = new THREE.PointLight(0x8b5cf6, 0.5);
-            pointLight.position.set(-10, -10, -10);
-            scene.add(pointLight);
+            // Create plane geometry that covers the screen
+            const geometry = new THREE.PlaneGeometry(2 * aspect, 2);
             
-            // Create shapes
-            const geometries = [
-                { geometry: new THREE.BoxGeometry(1, 1, 1), position: [-4, 3, -2], color: 0x3b82f6 },
-                { geometry: new THREE.SphereGeometry(0.8, 32, 32), position: [4, -2, -1], color: 0x8b5cf6 },
-                { geometry: new THREE.TorusGeometry(0.6, 0.3, 16, 100), position: [-3, -3, -3], color: 0x06b6d4 },
-                { geometry: new THREE.ConeGeometry(0.6, 1.2, 8), position: [3, 4, -2], color: 0x10b981 },
-                { geometry: new THREE.BoxGeometry(1, 1, 1), position: [0, -4, -4], color: 0xf59e0b }
-            ];
-            
-            geometries.forEach(({ geometry, position, color }) => {
-                const material = new THREE.MeshPhongMaterial({
-                    color: color,
-                    shininess: 100,
-                    specular: 0x222222
-                });
-                const mesh = new THREE.Mesh(geometry, material);
-                mesh.position.set(...position);
-                mesh.userData = {
-                    originalPosition: position,
-                    floatSpeed: Math.random() * 2 + 1,
-                    rotationSpeed: {
-                        x: (Math.random() - 0.5) * 0.02,
-                        y: (Math.random() - 0.5) * 0.02,
-                        z: (Math.random() - 0.5) * 0.02
-                    }
-                };
-                scene.add(mesh);
-                shapes.push(mesh);
+            // Create shader material
+            const material = new THREE.ShaderMaterial({
+                uniforms: uniforms,
+                vertexShader: vertexShader,
+                fragmentShader: fragmentShader
             });
+            
+            // Create mesh
+            silkMesh = new THREE.Mesh(geometry, material);
+            scene.add(silkMesh);
             
             // Handle window resize
             window.addEventListener('resize', onWindowResize, false);
         }
-        
+
         function onWindowResize() {
-            camera.aspect = window.innerWidth / window.innerHeight;
+            const aspect = window.innerWidth / window.innerHeight;
+            camera.left = -aspect;
+            camera.right = aspect;
             camera.updateProjectionMatrix();
+            
             renderer.setSize(window.innerWidth, window.innerHeight);
+            
+            // Update plane size
+            if (silkMesh) {
+                silkMesh.geometry.dispose();
+                silkMesh.geometry = new THREE.PlaneGeometry(2 * aspect, 2);
+            }
         }
-        
+
         function animate() {
-            requestAnimationFrame(animate);
-            
-            const time = Date.now() * 0.001;
-            
-            // Animate shapes
-            shapes.forEach((shape, index) => {
-                // Floating animation
-                shape.position.y = shape.userData.originalPosition[1] + 
-                    Math.sin(time * shape.userData.floatSpeed) * 0.3;
-                
-                // Rotation
-                shape.rotation.x += shape.userData.rotationSpeed.x;
-                shape.rotation.y += shape.userData.rotationSpeed.y;
-                shape.rotation.z += shape.userData.rotationSpeed.z;
-            });
-            
-            // Auto-rotate camera slightly
-            camera.position.x = Math.sin(time * 0.1) * 0.5;
-            camera.position.y = Math.cos(time * 0.1) * 0.5;
-            camera.lookAt(scene.position);
-            
+            animationFrameId = requestAnimationFrame(animate);
+            uniforms.uTime.value += 0.01;
             renderer.render(scene, camera);
         }
-        
+
+        // Pause animation when window is not in focus
+        window.addEventListener('blur', () => {
+            cancelAnimationFrame(animationFrameId);
+        });
+
+        window.addEventListener('focus', () => {
+            animate();
+        });
+
         // Initialize 3D scene
         init3D();
         animate();
-        
+
         // Intersection Observer for animations
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -100px 0px'
         };
-        
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1261,7 +1349,7 @@
                 }
             });
         }, observerOptions);
-        
+
         // Observe elements for animation
         document.querySelectorAll('.card, .timeline-item').forEach(el => {
             el.style.opacity = '0';
